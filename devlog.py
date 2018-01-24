@@ -4,6 +4,8 @@ import os
 import datetime
 
 
+
+
 def devlog():
     arg = sys.argv[1] if sys.argv.__len__() > 1 else None
     if arg is None:
@@ -17,17 +19,20 @@ def devlog():
 
 
 def log():
-    log_m = input('Log: ')
-    save_log(log_m)
+    lines = ''
+    log_m = input('Enter Log: (Leave an empty line to quit and save log)\n> ')
+    while log_m != '':
+        lines = lines + log_m + '\n'
+        log_m = input('> ')
+    save_log(lines)
 
 
 def save_log(m):
-    path = os.path.join(os.path.expanduser('~'), 'Documents')
     date = datetime.datetime.now()
     day = date.strftime("%d-%m-%Y")
     time = date.strftime("%H:%M")
-    file = open(os.path.join(path, 'Devlog/devlog.md'), "w")
-    file.write('{} {} {}'.format(day, time, m))
+    file = open(os.path.join(path, 'devlog.md'), "a+")
+    file.write('{} {} {}\n'.format(day, time, m))
     file.close()
     print(m)
 
@@ -37,13 +42,18 @@ def list_logs():
 
 
 def print_help():
-    print('Help')
+    help_message = 'Devlog is a simple command line tool to help you keep track of'\
+                    'progress in your coding journey.\n\n'\
+                    'Options:\n\t-l "<Enter your log here>"\t: Log a quick message.\n'\
+                    '\t-h or --help\t: Get help and view all commands for devlog'
+    print(help_message)
 
 
 def check_dir(path):
-    dir = os.path.dirname(path)
-    if not os.path.exists(dir):
-        os.makedirs(dir)
+    if not os.path.exists(path):
+        os.makedirs(path)
 
 
+path = os.path.join(os.path.expanduser('~'), 'Documents/Devlog')
+check_dir(path)
 devlog()
