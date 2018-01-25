@@ -1,5 +1,6 @@
 import sys
 import os
+import subprocess
 
 import datetime
 
@@ -44,7 +45,8 @@ def list_logs():
 def print_help():
     help_message = 'Devlog is a simple command line tool to help you keep track of'\
                     'progress in your coding journey.\n\n'\
-                    'Options:\n\t-l "<Enter your log here>"\t: Log a quick message.\n'\
+                    'Options:\n\topen\t: Open folder where markdown file is saved' \
+                   '\t-l "<Enter your log here>"\t: Log a quick message.\n'\
                     '\t-h or --help\t: Get help and view all commands for devlog'
     print(help_message)
 
@@ -55,7 +57,12 @@ def check_dir(path):
 
 
 def open_directory():
-    pass
+    if sys.platform == 'darwin':
+        subprocess.check_call(['open', '--', path])
+    elif sys.platform == 'linux2':
+        subprocess.check_call(['xdg-open', '--', path])
+    elif sys.platform == 'win32':
+        subprocess.check_call(['explorer', path])
 
 
 path = os.path.join(os.path.expanduser('~'), 'Documents/Devlog')
