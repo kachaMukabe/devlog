@@ -4,8 +4,6 @@ import os
 import datetime
 
 
-
-
 def devlog():
     arg = sys.argv[1] if sys.argv.__len__() > 1 else None
     if arg is None:
@@ -14,6 +12,8 @@ def devlog():
         save_log(sys.argv[2])
     elif '-h' == arg or '--help' == arg:
         print_help()
+    elif 'open' == arg:
+        open_directory()
     else:
         print("Type devlog -h or devlog --help to see all commands")
 
@@ -52,6 +52,10 @@ def print_help():
 def check_dir(path):
     if not os.path.exists(path):
         os.makedirs(path)
+
+
+def open_directory():
+    pass
 
 
 path = os.path.join(os.path.expanduser('~'), 'Documents/Devlog')
