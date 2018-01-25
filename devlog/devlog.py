@@ -35,7 +35,6 @@ def save_log(m):
     file = open(os.path.join(path, 'devlog.md'), "a+")
     file.write('{} {} {}\n'.format(day, time, m))
     file.close()
-    print(m)
 
 
 def list_logs():
@@ -43,11 +42,12 @@ def list_logs():
 
 
 def print_help():
-    help_message = 'Devlog is a simple command line tool to help you keep track of'\
-                    'progress in your coding journey.\n\n'\
-                    'Options:\n\topen\t: Open folder where markdown file is saved' \
-                   '\t-l "<Enter your log here>"\t: Log a quick message.\n'\
-                    '\t-h or --help\t: Get help and view all commands for devlog'
+    help_message = 'Devlog is a simple command line tool to help you keep track of' \
+                   'progress in your coding journey.\n\n' \
+                   'Options:\n' \
+                   '\topen\t: Open folder where markdown file is saved\n' \
+                   '\t-l "<Enter your log here>"\t: Log a quick message.\n' \
+                   '\t-h or --help\t: Get help and view all commands for devlog'
     print(help_message)
 
 
@@ -65,6 +65,9 @@ def open_directory():
         subprocess.check_call(['explorer', path])
 
 
+def main():
+    check_dir(path)
+    devlog()
+
+
 path = os.path.join(os.path.expanduser('~'), 'Documents/Devlog')
-check_dir(path)
-devlog()
